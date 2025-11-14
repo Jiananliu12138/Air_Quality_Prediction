@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Air Quality Prediction for Vienna</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;max-width:980px;margin:24px auto;padding:0 16px;color:#222}
+    header{display:flex;align-items:center;justify-content:space-between}
+    h1{font-size:1.6rem;margin:0}
+    .controls{margin:16px 0}
+    select{padding:8px 12px;font-size:1rem}
+    .gallery{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+    .card{width:calc(50% - 12px);box-shadow:0 1px 4px rgba(0,0,0,0.08);border-radius:6px;overflow:hidden;background:#fff}
+    .card img{display:block;width:100%;height:auto}
+    .caption{padding:8px;font-size:0.9rem;background:#fafafa}
+    @media (max-width:640px){.card{width:100%}}
+    .note{font-size:0.9rem;color:#555}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Air Quality Prediction for Vienna</h1>
+  </header>
+
+  <p class="note">从传感器列表中选择一个街道，页面会切换并显示模型输出图片（来自仓库的 image 目录）。</p>
+
+  <div class="controls">
+    <label for="sensorSelect">选择传感器街道：</label>
+    <select id="sensorSelect"></select>
+  </div>
+
+  <div id="gallery" class="gallery" aria-live="polite"></div>
+
+  <script>
+    // repo information used to build raw.githubusercontent URLs (fallback)
+    const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/Jiananliu12138/Air_Quality_Prediction/main/';
+
+    // Prefer local assets under docs; fallback to raw.githubusercontent if not present
+    const LOCAL_SENSORS = './assets/vienna_sensors_config.json';
+    const REMOTE_SENSORS = GITHUB_RAW_BASE + 'notebooks/airquality/vienna_sensors_config.json';
+    const SENSORS_JSON = LOCAL_SENSORS; // will try local first
+
+    // Available image filenames (discovered in repo). If you add more images, update this list.
+    const IMAGE_FILENAMES = [
+      'feature_importance.png',
+      'feature_importance_comparison.png',
+      'pm25_hindcast.png',
+      'pm25_hindcast_baseline.png',
+      'pm25_hindcast_enhanced.png'
+    ];
+
+    // local images path inside docs (recommended for GitHub Pages). If images are not copied
+    // to docs/assets/images then the page will use the remote raw.githubusercontent paths as fallback.
+    const LOCAL_IMAGES_BASE = './assets/images/';
+    const REMOTE_IMAGES_BASE = GITHUB_RAW_BASE + 'notebooks/airquality/air_quality_model/images/';
+    const IMAGES_BASE = LOCAL_IMAGES_BASE; // will attempt local first
+
+    const selectEl = document.getElementById('sensorSelect');
+    const galleryEl = document.getElementById('gallery');
+
+    async function loadSensors(){
+      try{
+          // try local JSON first, then fallback to remote
+          let resp = await fetch(LOCAL_SENSORS);
+          let json;
+          if(resp.ok){
+            json = await resp.json();
+          } else {
+            const r = await fetch(REMOTE_SENSORS);
+            if(!r.ok) throw new Error('无法加载 sensors JSON (local and remote)');
+            json = await r.json();
+          }
+        const active = (json.sensors || []).filter(s => s.status === 'active');
+        if(active.length === 0){
+          selectEl.innerHTML = '<option>未找到 active sensors</option>';
+          return;
+        }
+
+        active.forEach((s, idx) => {
+          const opt = document.createElement('option');
+          opt.value = s.street;
+          opt.textContent = s.street;
+          if(idx===0) opt.selected = true;
+          selectEl.appendChild(opt);
+        });
+
+        // initially render for first sensor
+        renderForSensor(active[0].street);
+
+      }catch(err){
+        console.error(err);
+        selectEl.innerHTML = '<option>加载 sensors 列表失败</option>';
+        galleryEl.innerHTML = '<p class="note">请确认仓库中存在 `notebooks/airquality/vienna_sensors_config.json`。</p>';
+      }
+    }
+
+    function renderForSensor(street){
+      galleryEl.innerHTML = '';
+      IMAGE_FILENAMES.forEach(fname => {
+          // try local image first, else use remote
+          const localUrl = LOCAL_IMAGES_BASE + fname;
+          const remoteUrl = REMOTE_IMAGES_BASE + fname;
+          const url = localUrl; // set src to local; browser will request it and fail if not present
+        const card = document.createElement('div');
+        card.className = 'card';
+        const img = document.createElement('img');
+          img.src = url;
+        img.alt = `${street} - ${fname}`;
+        img.loading = 'lazy';
+          // if local image fails to load, replace with remote
+          img.addEventListener('error', () => { img.src = remoteUrl; });
+        img.onclick = () => window.open(url, '_blank');
+        const caption = document.createElement('div');
+        caption.className = 'caption';
+        caption.textContent = `${street} — ${fname}`;
+        card.appendChild(img);
+        card.appendChild(caption);
+        galleryEl.appendChild(card);
+      });
+    }
+
+    selectEl.addEventListener('change', (e) => {
+      renderForSensor(e.target.value);
+    });
+
+    // kick off
+    loadSensors();
+  </script>
+</body>
+</html>
