@@ -1,0 +1,181 @@
+{
+  "country": "Austria",
+  "city": "Vienna",
+  "city_center": {
+    "latitude": 48.2082,
+    "longitude": 16.3738
+  },
+  "data_dir": "F:/ID2223/Air_Quality_Prediction/data",
+  "sensors": [
+    {
+      "name": "Kendlerstraße 40 (Umspannwerk)",
+      "street": "Kendlerstrasse-40",
+      "station_id": "2850",
+      "aqicn_url": "https://api.waqi.info/feed/@2850",
+      "latitude": 48.205,
+      "longitude": 16.30975,
+      "current_aqi": "46",
+      "csv_file": "vienna_kendlerstrasse.csv",
+      "status": "active"
+    },
+    {
+      "name": "Hausgrundweg 23, Gstr. 254",
+      "street": "Hausgrundweg-23",
+      "station_id": "2855",
+      "aqicn_url": "https://api.waqi.info/feed/@2855",
+      "latitude": 48.2263608333333,
+      "longitude": 16.458345,
+      "current_aqi": "42",
+      "csv_file": "vienna_hausgrundweg.csv",
+      "status": "active"
+    },
+    {
+      "name": "Allgemeines Krankenhaus, Ostringweg",
+      "street": "AKH-Ostringweg",
+      "station_id": "14537",
+      "aqicn_url": "https://api.waqi.info/feed/@14537",
+      "latitude": 48.21911,
+      "longitude": 16.349818,
+      "current_aqi": "42",
+      "csv_file": "vienna_akh_ostringweg.csv",
+      "status": "active"
+    },
+    {
+      "name": "Umspannwerk Gaudenzdorfer Gürtel",
+      "street": "Gaudenzdorfer-Guertel",
+      "station_id": "2857",
+      "aqicn_url": "https://api.waqi.info/feed/@2857",
+      "latitude": 48.1871469444444,
+      "longitude": 16.3393311111111,
+      "current_aqi": "42",
+      "csv_file": "vienna_gaudenzdorfer.csv",
+      "status": "active"
+    },
+    {
+      "name": "Belgradplatz (Südostecke), Gstr.Nr. 816",
+      "street": "Belgradplatz",
+      "station_id": "2870",
+      "aqicn_url": "https://api.waqi.info/feed/@2870",
+      "latitude": 48.1743530555556,
+      "longitude": 16.3614172222222,
+      "current_aqi": "38",
+      "csv_file": "vienna_belgradplatz.csv",
+      "status": "active"
+    },
+    {
+      "name": "Floridsdorf, Gerichtsgasse 1a",
+      "street": "Floridsdorf-Gerichtsgasse",
+      "station_id": "4738",
+      "aqicn_url": "https://api.waqi.info/feed/@4738",
+      "latitude": 48.261086,
+      "longitude": 16.396954,
+      "current_aqi": "38",
+      "csv_file": "vienna_floridsdorf.csv",
+      "status": "active"
+    },
+    {
+      "name": "Ecke Taborstraße - Glockengasse",
+      "street": "Taborstrasse",
+      "station_id": "2860",
+      "aqicn_url": "https://api.waqi.info/feed/@2860",
+      "latitude": 48.2167394444444,
+      "longitude": 16.3809180555556,
+      "current_aqi": "38",
+      "csv_file": "vienna_taborstrasse.csv",
+      "status": "active"
+    },
+    {
+      "name": "Wehlistraße 366, Gstr.Nr.2157",
+      "street": "Wehlistrasse-366",
+      "station_id": "4736",
+      "aqicn_url": "https://api.waqi.info/feed/@4736",
+      "latitude": 48.20306,
+      "longitude": 16.43455,
+      "current_aqi": "34",
+      "csv_file": "vienna_wehlistrasse.csv",
+      "status": "active"
+    },
+    {
+      "name": "Schafbergbad, Josef Redl Gasse 2",
+      "street": "Josef-Redl-Gasse",
+      "station_id": "4739",
+      "aqicn_url": "https://api.waqi.info/feed/@4739",
+      "latitude": 48.23537,
+      "longitude": 16.301563,
+      "current_aqi": "25",
+      "csv_file": "vienna_josef_redl.csv",
+      "status": "active"
+    },
+    {
+      "name": "Laaer Berg, Theodor Sickel-Gasse 1",
+      "street": "Laaer-Berg",
+      "station_id": "2813",
+      "aqicn_url": "https://api.waqi.info/feed/@2813",
+      "latitude": 48.1610363888889,
+      "longitude": 16.3929202777778,
+      "current_aqi": "-",
+      "last_update": "2024-01-12",
+      "csv_file": "vienna_laaer_berg.csv",
+      "status": "inactive"
+    },
+    {
+      "name": "Allgemeines Krankenhaus, Südringweg",
+      "street": "AKH-Suedringweg",
+      "station_id": "2848",
+      "aqicn_url": "https://api.waqi.info/feed/@2848",
+      "latitude": 48.219517,
+      "longitude": 16.345552,
+      "current_aqi": "-",
+      "last_update": "1970-01-01",
+      "csv_file": "vienna_akh_suedringweg.csv",
+      "status": "inactive"
+    },
+    {
+      "name": "Rinnböckstraße 15, Gstr. 1092",
+      "street": "Rinnboeckstrasse-15",
+      "station_id": "2871",
+      "aqicn_url": "https://api.waqi.info/feed/@2871",
+      "latitude": 48.184144166667,
+      "longitude": 16.406597222222,
+      "current_aqi": "-",
+      "last_update": "1970-01-01",
+      "csv_file": "vienna_rinnboeckstrasse.csv",
+      "status": "inactive"
+    },
+    {
+      "name": "Floridsdorf, Gerichtsgasse 1a, Gstr.Nr. 438",
+      "street": "Floridsdorf-Gerichtsgasse-Alt",
+      "station_id": "2849",
+      "aqicn_url": "https://api.waqi.info/feed/@2849",
+      "latitude": 48.261086388889,
+      "longitude": 16.396953055556,
+      "current_aqi": "-",
+      "last_update": "1970-01-01",
+      "csv_file": "vienna_floridsdorf_alt.csv",
+      "status": "inactive"
+    },
+    {
+      "name": "Josef Redl Gasse 2, Gstr.Nr. 698",
+      "street": "Josef-Redl-Gasse-Alt",
+      "station_id": "2851",
+      "aqicn_url": "https://api.waqi.info/feed/@2851",
+      "latitude": 48.235369722222,
+      "longitude": 16.301563611111,
+      "current_aqi": "-",
+      "last_update": "1970-01-01",
+      "csv_file": "vienna_josef_redl_alt.csv",
+      "status": "inactive"
+    }
+    
+  ],
+  "notes": {
+    "data_source": "Real sensor data from AQICN API search results (2025-11-13)",
+    "total_sensors": "14 sensors in total",
+    "active_sensors": "9 active sensors with current data (status='active'): 2850, 2855, 14537, 2857, 2870, 4738, 2860, 4736, 4739",
+    "inactive_sensors": "5 inactive sensors (status='inactive'): 2813 (last update 2024-01-12), 2848, 2871, 2849, 2851 (no recent data)",
+    "recommendation": "Use only 'active' sensors for real-time data collection and training",
+    "csv_files": "Optional - used for historical data backfill if available",
+    "csv_format": "Columns: date, pm25, (other fields will be added automatically)"
+  }
+}
+
