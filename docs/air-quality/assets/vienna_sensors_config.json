@@ -1,0 +1,101 @@
+{
+  "country": "Austria",
+  "city": "Vienna",
+  "city_center": {
+    "latitude": 48.2082,
+    "longitude": 16.3738
+  },
+  "data_dir": "../..",
+  "sensors": [
+    {
+      "name": "Kendlerstraße 40 (Umspannwerk)",
+      "street": "Kendlerstrasse-40",
+      "station_id": "2850",
+      "latitude": 48.205,
+      "longitude": 16.30975,
+      "current_aqi": "46",
+      "csv_file": "vienna_kendlerstrasse.csv",
+      "status": "active"
+    },
+    {
+      "name": "Hausgrundweg 23, Gstr. 254",
+      "street": "Hausgrundweg-23",
+      "station_id": "2855",
+      "latitude": 48.2263608333333,
+      "longitude": 16.458345,
+      "current_aqi": "42",
+      "csv_file": "vienna_hausgrundweg.csv",
+      "status": "active"
+    },
+    {
+      "name": "Allgemeines Krankenhaus, Ostringweg",
+      "street": "AKH-Ostringweg",
+      "station_id": "14537",
+      "latitude": 48.21911,
+      "longitude": 16.349818,
+      "current_aqi": "42",
+      "csv_file": "vienna_akh_ostringweg.csv",
+      "status": "active"
+    },
+    {
+      "name": "Umspannwerk Gaudenzdorfer Gürtel",
+      "street": "Gaudenzdorfer-Guertel",
+      "station_id": "2857",
+      "latitude": 48.1871469444444,
+      "longitude": 16.3393311111111,
+      "current_aqi": "42",
+      "csv_file": "vienna_gaudenzdorfer.csv",
+      "status": "active"
+    },
+    {
+      "name": "Belgradplatz (Südostecke), Gstr.Nr. 816",
+      "street": "Belgradplatz",
+      "station_id": "2870",
+      "latitude": 48.1743530555556,
+      "longitude": 16.3614172222222,
+      "current_aqi": "38",
+      "csv_file": "vienna_belgradplatz.csv",
+      "status": "active"
+    },
+    {
+      "name": "Floridsdorf, Gerichtsgasse 1a",
+      "street": "Floridsdorf-Gerichtsgasse",
+      "station_id": "4738",
+      "latitude": 48.261086,
+      "longitude": 16.396954,
+      "current_aqi": "38",
+      "csv_file": "vienna_floridsdorf.csv",
+      "status": "active"
+    },
+    {
+      "name": "Ecke Taborstraße - Glockengasse",
+      "street": "Taborstrasse",
+      "station_id": "2860",
+      "latitude": 48.2167394444444,
+      "longitude": 16.3809180555556,
+      "current_aqi": "38",
+      "csv_file": "vienna_taborstrasse.csv",
+      "status": "active"
+    },
+    {
+      "name": "Wehlistraße 366, Gstr.Nr.2157",
+      "street": "Wehlistrasse-366",
+      "station_id": "4736",
+      "latitude": 48.20306,
+      "longitude": 16.43455,
+      "current_aqi": "34",
+      "csv_file": "vienna_wehlistrasse.csv",
+      "status": "active"
+    },
+    {
+      "name": "Schafbergbad, Josef Redl Gasse 2",
+      "street": "Josef-Redl-Gasse",
+      "station_id": "4739",
+      "latitude": 48.23537,
+      "longitude": 16.301563,
+      "current_aqi": "25",
+      "csv_file": "vienna_josef_redl.csv",
+      "status": "active"
+    }
+  ]
+}
