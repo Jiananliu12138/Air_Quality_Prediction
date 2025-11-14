@@ -5,7 +5,7 @@
     "latitude": 48.2082,
     "longitude": 16.3738
   },
-  "data_dir": "/Users/mac/Documents/Documents/ID2223_Scalable/lab1_new/Air_Quality_Prediction/data",
+  "data_dir": "F:/ID2223/Air_Quality_Prediction/data",
   "sensors": [
     {
       "name": "Kendlerstraße 40 (Umspannwerk)",
