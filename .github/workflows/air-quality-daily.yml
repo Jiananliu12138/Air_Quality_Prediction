@@ -2,8 +2,8 @@ name: air-quality-daily
 
 on:
   workflow_dispatch:
-    #schedule:
-    #- cron: '11 6 * * *'
+  schedule:
+    - cron: "11 6 * * *"
 
 jobs:
   schedule_pipelines:
@@ -34,6 +34,7 @@ jobs:
           ipython notebooks/airquality/2_air_quality_feature_pipeline.ipynb
           ipython notebooks/airquality/4_air_quality_batch_inference.ipynb
           ipython notebooks/airquality/2_vienna_multi_sensor_feature_pipeline.ipynb
+          ipython notebooks/airquality/4_vienna_multi_sensor_inference.ipynb
       - name: github pages publish
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
