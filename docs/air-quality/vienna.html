@@ -3,128 +3,306 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Air Quality Prediction for Vienna</title>
+  <title>Vienna Air Quality Prediction - Multi-Sensor PM2.5 Forecast</title>
   <style>
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;max-width:980px;margin:24px auto;padding:0 16px;color:#222}
-    header{display:flex;align-items:center;justify-content:space-between}
-    h1{font-size:1.6rem;margin:0}
-    .controls{margin:16px 0}
-    select{padding:8px 12px;font-size:1rem}
-    .gallery{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
-    .card{width:calc(50% - 12px);box-shadow:0 1px 4px rgba(0,0,0,0.08);border-radius:6px;overflow:hidden;background:#fff}
-    .card img{display:block;width:100%;height:auto}
-    .caption{padding:8px;font-size:0.9rem;background:#fafafa}
-    @media (max-width:640px){.card{width:100%}}
-    .note{font-size:0.9rem;color:#555}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      overflow: hidden;
+    }
+    header {
+      background: linear-gradient(135deg, #1EB182 0%, #17a673 100%);
+      color: white;
+      padding: 32px 24px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      font-size: 1rem;
+      opacity: 0.95;
+      font-weight: 400;
+    }
+    .controls {
+      padding: 24px;
+      background: #f8f9fa;
+      border-bottom: 1px solid #e9ecef;
+    }
+    .control-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    label {
+      font-weight: 600;
+      color: #495057;
+      white-space: nowrap;
+    }
+    select {
+      flex: 1;
+      padding: 10px 16px;
+      font-size: 1rem;
+      border: 2px solid #ced4da;
+      border-radius: 6px;
+      background: white;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    select:hover {
+      border-color: #1EB182;
+    }
+    select:focus {
+      outline: none;
+      border-color: #1EB182;
+      box-shadow: 0 0 0 3px rgba(30, 177, 130, 0.1);
+    }
+    .content {
+      padding: 32px 24px;
+      min-height: 400px;
+    }
+    .image-container {
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 24px;
+      text-align: center;
+    }
+    .image-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .image-container img:hover {
+      transform: scale(1.02);
+    }
+    .image-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #212529;
+      margin-bottom: 16px;
+    }
+    .image-description {
+      font-size: 0.95rem;
+      color: #6c757d;
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+    .loading {
+      text-align: center;
+      padding: 60px 20px;
+      color: #6c757d;
+    }
+    .error {
+      text-align: center;
+      padding: 60px 20px;
+      color: #dc3545;
+    }
+    footer {
+      padding: 20px;
+      text-align: center;
+      background: #f8f9fa;
+      border-top: 1px solid #e9ecef;
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #e7f5ff;
+      color: #1864ab;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 8px;
+    }
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      .subtitle {
+        font-size: 0.9rem;
+      }
+      .control-group {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .content {
+        padding: 20px 16px;
+      }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Air Quality Prediction for Vienna</h1>
-  </header>
+  <div class="container">
+    <header>
+      <h1>🌍 Vienna Air Quality Prediction</h1>
+      <p class="subtitle">Multi-Sensor PM2.5 Forecasting System</p>
+      <span class="badge">9 Active Sensors</span>
+    </header>
 
-  <p class="note">从传感器列表中选择一个街道，页面会切换并显示模型输出图片（来自仓库的 image 目录）。</p>
+    <div class="controls">
+      <div class="control-group">
+        <label for="sensorSelect">📡 选择传感器：</label>
+        <select id="sensorSelect">
+          <option value="">加载中...</option>
+        </select>
+      </div>
+    </div>
 
-  <div class="controls">
-    <label for="sensorSelect">选择传感器街道：</label>
-    <select id="sensorSelect"></select>
+    <div class="content">
+      <div id="imageDisplay"></div>
+    </div>
+
+    <footer>
+      <p>🔄 数据每日更新 | 基于 XGBoost 机器学习模型 | PM2.5 预测</p>
+    </footer>
   </div>
 
-  <div id="gallery" class="gallery" aria-live="polite"></div>
-
   <script>
-    // repo information used to build raw.githubusercontent URLs (fallback)
+    // GitHub repository configuration
     const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/Jiananliu12138/Air_Quality_Prediction/main/';
-
-    // Prefer local assets under docs; fallback to raw.githubusercontent if not present
+    
+    // Local paths (for GitHub Pages)
     const LOCAL_SENSORS = './assets/vienna_sensors_config.json';
     const REMOTE_SENSORS = GITHUB_RAW_BASE + 'notebooks/airquality/vienna_sensors_config.json';
-    const SENSORS_JSON = LOCAL_SENSORS; // will try local first
-
-    // Available image filenames (discovered in repo). If you add more images, update this list.
-    const IMAGE_FILENAMES = [
-      'feature_importance.png',
-      'feature_importance_comparison.png',
-      'pm25_hindcast.png',
-      'pm25_hindcast_baseline.png',
-      'pm25_hindcast_enhanced.png'
-    ];
-
-    // local images path inside docs (recommended for GitHub Pages). If images are not copied
-    // to docs/assets/images then the page will use the remote raw.githubusercontent paths as fallback.
-    const LOCAL_IMAGES_BASE = './assets/images/';
-    const REMOTE_IMAGES_BASE = GITHUB_RAW_BASE + 'notebooks/airquality/air_quality_model/images/';
-    const IMAGES_BASE = LOCAL_IMAGES_BASE; // will attempt local first
+    
+    const LOCAL_IMAGES_BASE = './assets/img/vienna_forecasts/';
+    const REMOTE_IMAGES_BASE = GITHUB_RAW_BASE + 'docs/air-quality/assets/img/vienna_forecasts/';
 
     const selectEl = document.getElementById('sensorSelect');
-    const galleryEl = document.getElementById('gallery');
+    const displayEl = document.getElementById('imageDisplay');
 
-    async function loadSensors(){
-      try{
-          // try local JSON first, then fallback to remote
-          let resp = await fetch(LOCAL_SENSORS);
-          let json;
-          if(resp.ok){
-            json = await resp.json();
-          } else {
-            const r = await fetch(REMOTE_SENSORS);
-            if(!r.ok) throw new Error('无法加载 sensors JSON (local and remote)');
-            json = await r.json();
-          }
+    let sensorsData = [];
+
+    // Load sensors configuration
+    async function loadSensors() {
+      try {
+        displayEl.innerHTML = '<div class="loading">⏳ 正在加载传感器列表...</div>';
+        
+        // Try local JSON first, then fallback to remote
+        let resp = await fetch(LOCAL_SENSORS);
+        let json;
+        
+        if (resp.ok) {
+          json = await resp.json();
+        } else {
+          const r = await fetch(REMOTE_SENSORS);
+          if (!r.ok) throw new Error('无法加载传感器配置文件');
+          json = await r.json();
+        }
+
         const active = (json.sensors || []).filter(s => s.status === 'active');
-        if(active.length === 0){
-          selectEl.innerHTML = '<option>未找到 active sensors</option>';
+        
+        if (active.length === 0) {
+          selectEl.innerHTML = '<option>未找到活跃传感器</option>';
+          displayEl.innerHTML = '<div class="error">❌ 未找到活跃的传感器</div>';
           return;
         }
 
-        active.forEach((s, idx) => {
-          const opt = document.createElement('option');
-          opt.value = s.street;
-          opt.textContent = s.street;
-          if(idx===0) opt.selected = true;
-          selectEl.appendChild(opt);
-        });
+        sensorsData = active;
+        populateSelect(active);
+        
+        // Show multi-sensor forecast by default
+        renderImage('all');
 
-        // initially render for first sensor
-        renderForSensor(active[0].street);
-
-      }catch(err){
-        console.error(err);
-        selectEl.innerHTML = '<option>加载 sensors 列表失败</option>';
-        galleryEl.innerHTML = '<p class="note">请确认仓库中存在 `notebooks/airquality/vienna_sensors_config.json`。</p>';
+      } catch (err) {
+        console.error('加载传感器列表失败:', err);
+        selectEl.innerHTML = '<option>加载失败</option>';
+        displayEl.innerHTML = `<div class="error">❌ 加载失败: ${err.message}</div>`;
       }
     }
 
-    function renderForSensor(street){
-      galleryEl.innerHTML = '';
-      IMAGE_FILENAMES.forEach(fname => {
-          // try local image first, else use remote
-          const localUrl = LOCAL_IMAGES_BASE + fname;
-          const remoteUrl = REMOTE_IMAGES_BASE + fname;
-          const url = localUrl; // set src to local; browser will request it and fail if not present
-        const card = document.createElement('div');
-        card.className = 'card';
-        const img = document.createElement('img');
-          img.src = url;
-        img.alt = `${street} - ${fname}`;
-        img.loading = 'lazy';
-          // if local image fails to load, replace with remote
-          img.addEventListener('error', () => { img.src = remoteUrl; });
-        img.onclick = () => window.open(url, '_blank');
-        const caption = document.createElement('div');
-        caption.className = 'caption';
-        caption.textContent = `${street} — ${fname}`;
-        card.appendChild(img);
-        card.appendChild(caption);
-        galleryEl.appendChild(card);
+    // Populate sensor dropdown
+    function populateSelect(sensors) {
+      selectEl.innerHTML = '';
+      
+      // Add "All Sensors" option
+      const allOpt = document.createElement('option');
+      allOpt.value = 'all';
+      allOpt.textContent = '🌐 所有传感器对比 (Multi-Sensor Forecast)';
+      allOpt.selected = true;
+      selectEl.appendChild(allOpt);
+
+      // Add separator
+      const separator = document.createElement('option');
+      separator.disabled = true;
+      separator.textContent = '────────────────────';
+      selectEl.appendChild(separator);
+
+      // Add individual sensors
+      sensors.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s.street;
+        opt.textContent = `📍 ${s.name}`;
+        selectEl.appendChild(opt);
       });
     }
 
+    // Render image based on selection
+    function renderImage(sensorStreet) {
+      let imageUrl, localUrl, remoteUrl, title, description;
+
+      if (sensorStreet === 'all') {
+        // Multi-sensor forecast
+        const filename = 'multi_sensor_forecast.png';
+        localUrl = LOCAL_IMAGES_BASE + filename;
+        remoteUrl = REMOTE_IMAGES_BASE + filename;
+        imageUrl = localUrl;
+        title = '🌐 All Sensors - PM2.5 Forecast Comparison';
+        description = '维也纳9个空气质量监测点的PM2.5预测对比图。实线表示预测值，虚线表示历史真实值。';
+      } else {
+        // Individual sensor forecast
+        const sensor = sensorsData.find(s => s.street === sensorStreet);
+        const filename = `forecast_${sensorStreet.toLowerCase().replace(/-/g, '_')}.png`;
+        localUrl = LOCAL_IMAGES_BASE + filename;
+        remoteUrl = REMOTE_IMAGES_BASE + filename;
+        imageUrl = localUrl;
+        title = `📍 ${sensor ? sensor.name : sensorStreet}`;
+        description = `${sensor ? sensor.name : sensorStreet} 的PM2.5预测图。蓝色线条为历史真实值，橙色线条为未来预测值。灰色虚线标记预测起始点。`;
+      }
+
+      displayEl.innerHTML = `
+        <div class="image-container">
+          <div class="image-title">${title}</div>
+          <img 
+            src="${imageUrl}" 
+            alt="${title}"
+            onerror="this.src='${remoteUrl}'; if(this.src===this.onerror) this.onerror=null;"
+            onclick="window.open(this.src, '_blank')"
+          />
+          <div class="image-description">${description}</div>
+        </div>
+      `;
+    }
+
+    // Event listener for sensor selection
     selectEl.addEventListener('change', (e) => {
-      renderForSensor(e.target.value);
+      renderImage(e.target.value);
     });
 
-    // kick off
+    // Initialize
     loadSensors();
   </script>
 </body>
