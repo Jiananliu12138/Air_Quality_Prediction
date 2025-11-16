@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -164,9 +164,9 @@
 
     <div class="controls">
       <div class="control-group">
-        <label for="sensorSelect">📡 选择传感器：</label>
+        <label for="sensorSelect">📡 Select Sensor:</label>
         <select id="sensorSelect">
-          <option value="">加载中...</option>
+          <option value="">Loading...</option>
         </select>
       </div>
     </div>
@@ -176,7 +176,7 @@
     </div>
 
     <footer>
-      <p>🔄 数据每日更新 | 基于 XGBoost 机器学习模型 | PM2.5 预测</p>
+      <p>🔄 Daily Updates | XGBoost Machine Learning Model | PM2.5 Forecast</p>
     </footer>
   </div>
 
@@ -199,7 +199,7 @@
     // Load sensors configuration
     async function loadSensors() {
       try {
-        displayEl.innerHTML = '<div class="loading">⏳ 正在加载传感器列表...</div>';
+        displayEl.innerHTML = '<div class="loading">⏳ Loading sensor list...</div>';
         
         // Try local JSON first, then fallback to remote
         let resp = await fetch(LOCAL_SENSORS);
@@ -209,15 +209,15 @@
           json = await resp.json();
         } else {
           const r = await fetch(REMOTE_SENSORS);
-          if (!r.ok) throw new Error('无法加载传感器配置文件');
+          if (!r.ok) throw new Error('Unable to load sensor configuration');
           json = await r.json();
         }
 
         const active = (json.sensors || []).filter(s => s.status === 'active');
         
         if (active.length === 0) {
-          selectEl.innerHTML = '<option>未找到活跃传感器</option>';
-          displayEl.innerHTML = '<div class="error">❌ 未找到活跃的传感器</div>';
+          selectEl.innerHTML = '<option>No active sensors found</option>';
+          displayEl.innerHTML = '<div class="error">❌ No active sensors found</div>';
           return;
         }
 
@@ -228,9 +228,9 @@
         renderImage('all');
 
       } catch (err) {
-        console.error('加载传感器列表失败:', err);
-        selectEl.innerHTML = '<option>加载失败</option>';
-        displayEl.innerHTML = `<div class="error">❌ 加载失败: ${err.message}</div>`;
+        console.error('Failed to load sensor list:', err);
+        selectEl.innerHTML = '<option>Loading failed</option>';
+        displayEl.innerHTML = `<div class="error">❌ Loading failed: ${err.message}</div>`;
       }
     }
 
@@ -241,7 +241,7 @@
       // Add "All Sensors" option
       const allOpt = document.createElement('option');
       allOpt.value = 'all';
-      allOpt.textContent = '🌐 所有传感器对比 (Multi-Sensor Forecast)';
+      allOpt.textContent = '🌐 All Sensors Comparison (Multi-Sensor Forecast)';
       allOpt.selected = true;
       selectEl.appendChild(allOpt);
 
@@ -271,7 +271,7 @@
         remoteUrl = REMOTE_IMAGES_BASE + filename;
         imageUrl = localUrl;
         title = '🌐 All Sensors - PM2.5 Forecast Comparison';
-        description = '维也纳9个空气质量监测点的PM2.5预测对比图。实线表示预测值，虚线表示历史真实值。';
+        description = 'PM2.5 forecast comparison for all 9 air quality monitoring stations in Vienna. Solid lines represent forecasts, dashed lines represent historical actual values.';
       } else {
         // Individual sensor forecast
         const sensor = sensorsData.find(s => s.street === sensorStreet);
@@ -280,7 +280,7 @@
         remoteUrl = REMOTE_IMAGES_BASE + filename;
         imageUrl = localUrl;
         title = `📍 ${sensor ? sensor.name : sensorStreet}`;
-        description = `${sensor ? sensor.name : sensorStreet} 的PM2.5预测图。蓝色线条为历史真实值，橙色线条为未来预测值。灰色虚线标记预测起始点。`;
+        description = `PM2.5 forecast for ${sensor ? sensor.name : sensorStreet}. Blue line shows historical actual values, orange line shows future predictions. Grey dashed line marks the forecast start.`;
       }
 
       displayEl.innerHTML = `
